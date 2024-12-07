@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackBit - Advanced Google Dorks</title>
+    <style>
+        /* Import Hacker Vibes Font */
+        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
+
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Source Code Pro', monospace;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            color: #2ea043; /* Hacker green */
+        }
+
+        a {
+            text-decoration: none;
+            color: #58a6ff;
+        }
+
+         /* Splash Screen */
+         .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0d1117;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .splash-screen h1 {
+            font-size: 3rem;
+            text-shadow: 0 0 5px #2ea043, 0 0 10px #2ea043, 0 0 20px #2ea043;
+            margin: 0;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        .splash-screen .terminal {
+            font-size: 1.2rem;
+            color: #c9d1d9;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .splash-screen .terminal::before {
+            content: "> ";
+            color: #2ea043;
+        }
+
+        .splash-screen .logo {
+    max-width: 200px; /* Adjust the size */
+    height: auto;
+    animation: flicker 1.5s infinite alternate;
+    margin-bottom: 20px; /* Add spacing */
+}
+
+
+        @keyframes flicker {
+            0% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Page Layout */
+        header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(to right, #0d1117, #161b22);
+            border-bottom: 1px solid #21262d;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Category Styling */
+        .category {
+            background-color: #161b22;
+            margin: 20px 0;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .category h2 {
+            color: #de3570; /* Pink */
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .category p {
+            margin: 0 0 15px;
+            font-size: 1rem;
+        }
+
+        /* Dork Button Styling */
+        .dork {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #21262d;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            color: #3ca04b;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dork:hover {
+            background: #30363d;
+            color: #a8d7ff;
+        }
+
+        .dork .icon {
+            color: #ff79c6;
+            font-size: 1.2rem;
+        }
+
+        /* Input Field */
+        .input-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #21262d;
+            border-radius: 5px;
+            background-color: #161b22;
+            color: #c9d1d9;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2ea043;
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+<div class="splash-screen" id="splash">
+    <!-- Add the logo -->
+    <img src="hackbit_org.png" alt="HackBit Logo" class="logo">
+    <div class="terminal" id="terminalText">Initializing...</div>
+</div>
+
+    <header>
+        <h1>HackBit</h1>
+        <p>Advanced Google Dorks Methodology</p>
+    </header>
+    <div class="container">
+        <div class="input-container">
+            <input type="text" id="domainInput" placeholder="Enter domain (e.g., hackbit.org)">
+        </div>
+
+        <!-- Basic Domain Reconnaissance -->
+        <div class="category">
+            <h2>Basic Domain Reconnaissance</h2>
+            <div class="dork" onclick="searchDork('site:example.com -www -shop -share -ir -mfa')">
+                site:example.com -www -shop -share -ir -mfa
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:example.com ext:php inurl:?')">
+                site:example.com ext:php inurl:?
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:example.com inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3')">
+                site:example.com inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3
+                <span class="icon">🔍</span>
+            </div>
+        </div>
+
+        <!-- Sensitive File Extensions -->
+        <div class="category">
+            <h2>Sensitive File Extensions</h2>
+            <div class="dork" onclick="searchDork('site:example.com ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:json')">
+                site:example.com ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:json
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('inurl:conf | inurl:env | inurl:cgi | inurl:bin | inurl:etc | inurl:root | inurl:sql | inurl:backup | inurl:admin | inurl:php site:example.com')">
+                inurl:conf | inurl:env | inurl:cgi | inurl:bin | inurl:etc | inurl:root | inurl:sql | inurl:backup | inurl:admin | inurl:php site:example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:*.example.com ext:doc OR ext:docx OR ext:odt OR ext:pdf OR ext:rtf OR ext:ppt OR ext:pptx OR ext:csv OR ext:xls OR ext:xlsx OR ext:txt OR ext:xml OR ext:json OR ext:zip OR ext:rar OR ext:md OR ext:log OR ext:bak OR ext:conf OR ext:sql')">
+                site:*.example.com ext:doc OR ext:docx OR ext:odt OR ext:pdf OR ext:rtf OR ext:ppt OR ext:pptx OR ext:csv OR ext:xls OR ext:xlsx OR ext:txt OR ext:xml OR ext:json OR ext:zip OR ext:rar OR ext:md OR ext:log OR ext:bak OR ext:conf OR ext:sql
+                <span class="icon">🔍</span>
+            </div>
+        </div>
+        
+        <!-- Find pages exposing error messages or exceptions -->
+        <div class="category">
+            <h2>Error Pages and Exceptions</h2>
+            <div class="dork" onclick="searchDork('inurl:error | intitle:exception | intitle:failure | intitle:server at | inurl:exception | database error | SQL syntax | undefined index | unhandled exception | stack trace site:example.com')">
+                inurl:error | intitle:exception | intitle:failure | intitle:server at | inurl:exception | database error | SQL syntax | undefined index | unhandled exception | stack trace site:example.com
+                <span class="icon">🔍</span>
+            </div>
+        </div>
+
+        <!-- Search for potentially vulnerable parameters -->
+        <div class="category">
+            <h2>Vulnerability-Prone Parameters</h2>
+            <div class="dork" onclick="searchDork('inurl:q= | inurl:s= | inurl:search= | inurl:query= | inurl:keyword= | inurl:lang= inurl:& site:example.com')">
+                inurl:q= | inurl:s= | inurl:search= | inurl:query= | inurl:keyword= | inurl:lang= inurl:& site:example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('inurl:url= | inurl:return= | inurl:next= | inurl:redirect= | inurl:redir= | inurl:ret= | inurl:r2= | inurl:page= inurl:& inurl:http site:example.com')">
+                inurl:url= | inurl:return= | inurl:next= | inurl:redirect= | inurl:redir= | inurl:ret= | inurl:r2= | inurl:page= inurl:& inurl:http site:example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('inurl:id= | inurl:pid= | inurl:category= | inurl:cat= | inurl:action= | inurl:sid= | inurl:dir= inurl:& site:example.comsite:example.com inurl:api | site:*/rest | site:*/v1 | site:*/v2 | site:*/v3')">
+                inurl:id= | inurl:pid= | inurl:category= | inurl:cat= | inurl:action= | inurl:sid= | inurl:dir= inurl:& site:example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('inurl:http | inurl:url= | inurl:path= | inurl:dest= | inurl:html= | inurl:data= | inurl:domain= | inurl:page= inurl:& site:example.com')">
+                inurl:http | inurl:url= | inurl:path= | inurl:dest= | inurl:html= | inurl:data= | inurl:domain= | inurl:page= inurl:& site:example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('inurl:include | inurl:dir | inurl:detail= | inurl:file= | inurl:folder= | inurl:inc= | inurl:locate= | inurl:doc= | inurl:conf= inurl:& site:example.com')">
+                inurl:include | inurl:dir | inurl:detail= | inurl:file= | inurl:folder= | inurl:inc= | inurl:locate= | inurl:doc= | inurl:conf= inurl:& site:example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('inurl:cmd | inurl:exec= | inurl:query= | inurl:code= | inurl:do= | inurl:run= | inurl:read= | inurl:ping= inurl:& site:example.com')">
+                inurl:cmd | inurl:exec= | inurl:query= | inurl:code= | inurl:do= | inurl:run= | inurl:read= | inurl:ping= inurl:& site:example.com
+                <span class="icon">🔍</span>
+            </div>
+        </div>
+
+        <!-- Find exposed cloud storage and services -->
+        <div class="category">
+            <h2>Cloud Storage and Services</h2>
+            <div class="dork" onclick="searchDork('site:s3.amazonaws.com example.com')">
+                site:s3.amazonaws.com example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:blob.core.windows.net example.com')">
+                site:blob.core.windows.net example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:googleapis.com example.com')">
+                site:googleapis.com example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:drive.google.com example.com')">
+                site:drive.google.com example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:dev.azure.com example.com')">
+                site:dev.azure.com example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:onedrive.live.com example.com')">
+                site:onedrive.live.com example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:digitaloceanspaces.com example.com')">
+                site:digitaloceanspaces.com example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:sharepoint.com example.com')">
+                site:sharepoint.com example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:s3-external-1.amazonaws.com example.com')">
+                site:s3-external-1.amazonaws.com example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:s3.dualstack.us-east-1.amazonaws.com example.com')">
+                site:s3.dualstack.us-east-1.amazonaws.com example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:dropbox.com/s example.com')">
+                site:dropbox.com/s example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:box.com/s example.com')">
+                site:box.com/s example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:docs.google.com inurl:/d/ example.com')">
+                site:docs.google.com inurl:/d/  example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:jfrog.io example.com')">
+                site:jfrog.io example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:firebaseio.com example.com')">
+                site:firebaseio.com example.com
+                <span class="icon">🔍</span>
+            </div>
+        </div>
+       
+        <!-- Search for exposed code and documentation -->
+        <div class="category">
+            <h2>Code and Documentation</h2>
+            <div class="dork" onclick="searchDork('site:pastebin.com example.com')">
+                site:pastebin.com example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:jsfiddle.net example.com')">
+                site:jsfiddle.net example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:codebeautify.org example.com')">
+                site:codebeautify.org example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:codepen.io example.com')">
+                site:codepen.io example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer site:example.com')">
+                inurl:apidocs | inurl:api-docs | inurl:swagger | inurl:api-explorer site: example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:openbugbounty.org inurl:reports intext:example.com')">
+                site:openbugbounty.org inurl:reports intext:example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:groups.google.com example.com')">
+                site:groups.google.com example.com
+                <span class="icon">🔍</span>
+            </div>
+        </div>
+        
+        <!-- Find potentially sensitive content -->
+        <div class="category">
+            <h2>Sensitive Content</h2>
+            <div class="dork" onclick="searchDork('site:site:example.com choose file')">
+                site:example.com choose file
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('inurl:login | inurl:signin | intitle:login | intitle:signin | inurl:secure site:example.com')">
+                inurl:login | inurl:signin | intitle:login | intitle:signin | inurl:secure site:example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo site:example.com')">
+                inurl:test | inurl:env | inurl:dev | inurl:staging | inurl:sandbox | inurl:debug | inurl:temp | inurl:internal | inurl:demo site:example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('site:example.com ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx')">
+                site:example.com ext:txt | ext:pdf | ext:xml | ext:xls | ext:xlsx | ext:ppt | ext:pptx | ext:doc | ext:docx
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('intext:confidential | intext:Not for Public Release | intext:internal use only | intext:do not distribute site:example.com')">
+                intext:confidential | intext:Not for Public Release | intext:internal use only | intext:do not distribute site:example.com
+                <span class="icon">🔍</span>
+            </div>
+            <div class="dork" onclick="searchDork('inurl:email= | inurl:phone= | inurl:password= | inurl:secret= inurl:& site:example.com')">
+                inurl:email= | inurl:phone= | inurl:password= | inurl:secret= inurl:& site:example.com
+                <span class="icon">🔍</span>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script>
+        // Splash Screen Terminal Animation
+        const terminalLines = [
+            "Loading assets...",
+            "Initializing modules...",
+            "Fetching data...",
+            "System check...",
+            "Hacking vibes enabled...",
+            "Welcome to HackBit."
+        ];
+        let terminalIndex = 0;
+
+        const terminalText = document.getElementById('terminalText');
+        const splash = document.getElementById('splash');
+
+        function showNextTerminalLine() {
+            if (terminalIndex < terminalLines.length) {
+                terminalText.textContent = terminalLines[terminalIndex++];
+                setTimeout(showNextTerminalLine, 1000); // Delay for each line
+            } else {
+                splash.style.display = 'none'; // Hide splash screen
+            }
+        }
+
+        window.onload = () => {
+            showNextTerminalLine();
+        };
+
+        function searchDork(dork) {
+            const domain = document.getElementById('domainInput').value;
+            if (!domain) {
+                alert('Please enter a domain name.');
+                return;
+            }
+            const updatedDork = dork.replace(/example\.com/g, domain);
+            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(updatedDork)}`;
+            window.open(searchUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
