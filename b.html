@@ -1,0 +1,15 @@
+<!-- webrtc-test.html -->
+<html>
+<body>
+    <script>
+        var pc = new RTCPeerConnection();
+        pc.createDataChannel("");
+        pc.createOffer().then(offer => pc.setLocalDescription(offer));
+        pc.onicecandidate = event => {
+            if (event && event.candidate) {
+                console.log("IP Leak:", event.candidate.candidate);
+            }
+        };
+    </script>
+</body>
+</html>
