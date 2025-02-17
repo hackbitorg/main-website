@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE Payment Portal - NUBTK</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #00ff9d;
+            min-height: 100vh;
+            background-image: 
+                linear-gradient(45deg, rgba(0, 255, 157, 0.05) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(0, 255, 157, 0.05) 25%, transparent 25%);
+            background-size: 60px 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ff9d, transparent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 2rem auto;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem 3.5rem;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #00ff9d;
+            border-radius: 50px;
+            color: #00ff9d;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+            transform: scale(1.02);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00ff9d;
+            width: 20px;
+            height: 20px;
+        }
+
+        .file-status {
+            text-align: center;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            border-radius: 5px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .file-status.success {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid #00ff9d;
+        }
+
+        .file-status.error {
+            background: rgba(255, 99, 132, 0.1);
+            border: 1px solid #ff6384;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+        }
+
+        .results-table th {
+            background: rgba(0, 255, 157, 0.1);
+        }
+
+        .results-table tr:hover {
+            background: rgba(0, 255, 157, 0.05);
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            gap: 1rem;
+        }
+
+        .chart-container {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 1rem;
+            height: 300px;
+        }
+
+        .sponsor-section {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: rgba(0, 255, 157, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            animation: glowPulse 3s infinite;
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 5px rgba(0, 255, 157, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 157, 0.5); }
+            100% { box-shadow: 0 0 5px rgba(0, 255, 157, 0.3); }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .stats-container { flex-direction: column; }
+            .results-table { display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>NUBTK CSE Payment Portal</h1>
+            <p>Department of Computer Science & Engineering</p>
+        </div>
+
+        <div class="search-container">
+            <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" 
+                   class="search-bar" 
+                   placeholder="Enter Student ID..."
+                   id="searchInput"
+                   onkeyup="searchStudent()">
+        </div>
+
+        <div id="fileStatus" class="file-status"></div>
+        
+        <div class="stats-container">
+            <div class="chart-container">
+                <canvas id="paymentsChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="duesChart"></canvas>
+            </div>
+        </div>
+
+        <div id="results"></div>
+
+        <div class="sponsor-section">
+            <h3>Sponsored by</h3>
+            <p>NUBTK CSE Alumni Association</p>
+            <p>Tech Solutions Ltd.</p>
+        </div>
+    </div>
+
+    <script>
+        let paymentData = [];
+        let charts = {};
+
+        // Load the Excel file when the page loads
+        window.onload = function() {
+            loadExcelFile();
+        };
+
+        async function loadExcelFile() {
+            try {
+                const response = await fetch('payment.xls');
+                const data = await response.arrayBuffer();
+                const workbook = XLSX.read(new Uint8Array(data), { type: 'array' });
+                
+                // Get the first worksheet
+                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                
+                // Convert to JSON
+                const rawData = XLSX.utils.sheet_to_json(firstSheet);
+                
+                // Standardize the data format
+                paymentData = rawData.map(item => {
+                    return {
+                        id: item.StudentID || item['Student ID'] || '',
+                        name: item.StudentName || item['Student Full Name'] || '',
+                        totalReceived: parseFloat(item.TotalReceived || item['Total Received'] || 0),
+                        payable: parseFloat(item.TotalPayable || item['Total   Payable'] || 0),
+                        dues: parseFloat(item.Dues || item['100% Dues Last Date: 03/02/2025'] || 0),
+                        lastDate: item.LastDate || '03/02/2025'
+                    };
+                });
+                
+                // Update UI
+                updateCharts();
+                document.getElementById('fileStatus').innerHTML = 'Data loaded successfully';
+                document.getElementById('fileStatus').className = 'file-status success';
+            } catch (error) {
+                console.error('Error loading Excel file:', error);
+                document.getElementById('fileStatus').innerHTML = 'Error loading data file';
+                document.getElementById('fileStatus').className = 'file-status error';
+            }
+        }
+
+        function updateCharts() {
+            // Payments Overview Chart
+            const ctx1 = document.getElementById('paymentsChart').getContext('2d');
+            if (charts.payments) charts.payments.destroy();
+            charts.payments = new Chart(ctx1, {
+                type: 'bar',
+                 {
+                    labels: paymentData.slice(0, 5).map(student => student.id),
+                    datasets: [{
+                        label: 'Total Received',
+                        data: paymentData.slice(0, 5).map(student => student.totalReceived),
+                        backgroundColor: 'rgba(0, 255, 157, 0.2)',
+                        borderColor: '#00ff9d',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Recent Payments Overview',
+                            color: '#00ff9d'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: { color: '#00ff9d' },
+                            grid: { color: 'rgba(0, 255, 157, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#00ff9d' },
+                            grid: { color: 'rgba(0, 255, 157, 0.1)' }
+                        }
+                    }
+                }
+            });
+
+            // Dues Chart
+            const ctx2 = document.getElementById('duesChart').getContext('2d');
+            if (charts.dues) charts.dues.destroy();
+            charts.dues = new Chart(ctx2, {
+                type: 'doughnut',
+                 {
+                    labels: ['Paid', 'Dues'],
+                    datasets: [{
+                        data: [
+                            paymentData.reduce((sum, student) => sum + student.totalReceived, 0),
+                            paymentData.reduce((sum, student) => sum + student.dues, 0)
+                        ],
+                        backgroundColor: [
+                            'rgba(0, 255, 157, 0.2)',
+                            'rgba(255, 99, 132, 0.2)'
+                        ],
+                        borderColor: [
+                            '#00ff9d',
+                            '#ff6384'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Overall Payment Status',
+                            color: '#00ff9d'
+                        }
+                    }
+                }
+            });
+        }
+
+        function searchStudent() {
+            const input = document.getElementById("searchInput").value.toUpperCase();
+            
+            // Filter the data with flexible property name handling
+            const filteredData = paymentData.filter(student => {
+                // Convert student ID to string and check if it includes the search input
+                return student.id.toString().toUpperCase().includes(input);
+            });
+
+            let html = '';
+            if (filteredData.length > 0) {
+                html = `<table class="results-table">
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Total Received</th>
+                        <th>Total Payable</th>
+                        <th>Dues</th>
+                        <th>Last Date</th>
+                    </tr>`;
+
+                filteredData.forEach(student => {
+                    html += `
+                    <tr>
+                        <td>${student.id}</td>
+                        <td>${student.name}</td>
+                        <td>${student.totalReceived}</td>
+                        <td>${student.payable}</td>
+                        <td>${student.dues}</td>
+                        <td>${student.lastDate}</td>
+                    </tr>`;
+                });
+
+                html += '</table>';
+            } else {
+                html = '<p class="no-results">No matching records found</p>';
+            }
+
+            document.getElementById("results").innerHTML = html;
+        }
+    </script>
+</body>
+</html>
