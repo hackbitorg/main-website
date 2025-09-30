@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Tools - HackBit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Courier New', monospace;
+        background: #0a0e27;
+        color: #00ff41;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 60px 20px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 60px;
+        border-bottom: 2px solid #00ff41;
+        padding-bottom: 30px;
+    }
+
+    h1 {
+        font-size: 3em;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px #00ff41;
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41; }
+        to { text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41, 0 0 30px #00ff41; }
+    }
+
+    .tagline {
+        font-size: 1.2em;
+        color: #00cc33;
+        margin-top: 10px;
+    }
+
+    .filter-bar {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .filter-btn {
+        padding: 10px 25px;
+        background: rgba(0, 255, 65, 0.1);
+        border: 1px solid #00cc33;
+        color: #00ff41;
+        cursor: pointer;
+        font-family: 'Courier New', monospace;
+        font-size: 1em;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+        background: rgba(0, 255, 65, 0.2);
+        border-color: #00ff41;
+        box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+    }
+
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .tool-card {
+        background: rgba(0, 255, 65, 0.05);
+        border: 1px solid #00ff41;
+        padding: 30px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tool-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+        transition: left 0.5s;
+    }
+
+    .tool-card:hover::before {
+        left: 100%;
+    }
+
+    .tool-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+        border-color: #00ff41;
+    }
+
+    .tool-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 15px;
+    }
+
+    .tool-card h3 {
+        color: #00ff41;
+        font-size: 1.5em;
+        margin-bottom: 5px;
+    }
+
+    .tool-badge {
+        background: rgba(0, 255, 65, 0.2);
+        color: #00ff41;
+        padding: 5px 12px;
+        border-radius: 3px;
+        font-size: 0.8em;
+        border: 1px solid #00cc33;
+    }
+
+    .tool-card p {
+        color: #a0ffa0;
+        margin-bottom: 15px;
+        font-size: 1em;
+    }
+
+    .tool-features {
+        margin: 15px 0;
+        padding-left: 20px;
+    }
+
+    .tool-features li {
+        color: #80ff80;
+        margin-bottom: 8px;
+        list-style: none;
+        position: relative;
+    }
+
+    .tool-features li::before {
+        content: '▸';
+        position: absolute;
+        left: -15px;
+        color: #00ff41;
+    }
+
+    .tool-footer {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .tool-btn {
+        flex: 1;
+        padding: 12px;
+        background: rgba(0, 255, 65, 0.1);
+        border: 1px solid #00cc33;
+        color: #00ff41;
+        text-align: center;
+        text-decoration: none;
+        font-family: 'Courier New', monospace;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .tool-btn:hover {
+        background: #00ff41;
+        color: #0a0e27;
+        transform: scale(1.05);
+    }
+
+    .tool-btn.primary {
+        background: #00ff41;
+        color: #0a0e27;
+        font-weight: bold;
+    }
+
+    .tool-btn.primary:hover {
+        background: #00cc33;
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        .tools-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>[ SECURITY TOOLS ]</h1>
+            <p class="tagline">&gt; Professional Penetration Testing & Security Assessment Tools</p>
+        </header>
+
+```
+    <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All Tools</button>
+        <button class="filter-btn" data-filter="scanner">Scanners</button>
+        <button class="filter-btn" data-filter="exploit">Exploitation</button>
+        <button class="filter-btn" data-filter="recon">Reconnaissance</button>
+        <button class="filter-btn" data-filter="forensics">Forensics</button>
+    </div>
+
+    <div class="tools-grid">
+        <div class="tool-card" data-category="scanner">
+            <div class="tool-header">
+                <div>
+                    <h3>VulnScan Pro</h3>
+                </div>
+                <span class="tool-badge">Scanner</span>
+            </div>
+            <p>Advanced vulnerability scanner with automated detection for web applications, networks, and cloud infrastructure.</p>
+            <ul class="tool-features">
+                <li>CVE database integration</li>
+                <li>Real-time scanning engine</li>
+                <li>Automated report generation</li>
+                <li>API support for CI/CD</li>
+            </ul>
+            <div class="tool-footer">
+                <a href="#" class="tool-btn primary">Launch Tool</a>
+                <a href="#" class="tool-btn">Documentation</a>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="exploit">
+            <div class="tool-header">
+                <div>
+                    <h3>ExploitKit XR</h3>
+                </div>
+                <span class="tool-badge">Exploitation</span>
+            </div>
+            <p>Comprehensive exploitation framework for ethical penetration testing with modular payload system.</p>
+            <ul class="tool-features">
+                <li>500+ exploit modules</li>
+                <li>Custom payload builder</li>
+                <li>Post-exploitation toolkit</li>
+                <li>Encrypted C2 channels</li>
+            </ul>
+            <div class="tool-footer">
+                <a href="#" class="tool-btn primary">Launch Tool</a>
+                <a href="#" class="tool-btn">Documentation</a>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="recon">
+            <div class="tool-header">
+                <div>
+                    <h3>NetMapper</h3>
+                </div>
+                <span class="tool-badge">Recon</span>
+            </div>
+            <p>Powerful network reconnaissance and mapping tool for discovering assets and analyzing attack surfaces.</p>
+            <ul class="tool-features">
+                <li>Port and service discovery</li>
+                <li>OS fingerprinting</li>
+                <li>Network topology mapping</li>
+                <li>Subdomain enumeration</li>
+            </ul>
+            <div class="tool-footer">
+                <a href="#" class="tool-btn primary">Launch Tool</a>
+                <a href="#" class="tool-btn">Documentation</a>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="scanner">
+            <div class="tool-header">
+                <div>
+                    <h3>WebHawk</h3>
+                </div>
+                <span class="tool-badge">Scanner</span>
+            </div>
+            <p>Specialized web application security scanner detecting OWASP Top 10 vulnerabilities and beyond.</p>
+            <ul class="tool-features">
+                <li>SQLi & XSS detection</li>
+                <li>Authentication bypass tests</li>
+                <li>CSRF vulnerability checks</li>
+                <li>Interactive scan reports</li>
+            </ul>
+            <div class="tool-footer">
+                <a href="#" class="tool-btn primary">Launch Tool</a>
+                <a href="#" class="tool-btn">Documentation</a>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="forensics">
+            <div class="tool-header">
+                <div>
+                    <h3>DataForge</h3>
+                </div>
+                <span class="tool-badge">Forensics</span>
+            </div>
+            <p>Digital forensics suite for incident response, evidence collection, and malware analysis.</p>
+            <ul class="tool-features">
+                <li>Memory dump analysis</li>
+                <li>File carving & recovery</li>
+                <li>Timeline reconstruction</li>
+                <li>Artifact extraction</li>
+            </ul>
+            <div class="tool-footer">
+                <a href="#" class="tool-btn primary">Launch Tool</a>
+                <a href="#" class="tool-btn">Documentation</a>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="recon">
+            <div class="tool-header">
+                <div>
+                    <h3>OSINT Crawler</h3>
+                </div>
+                <span class="tool-badge">Recon</span>
+            </div>
+            <p>Open-source intelligence gathering platform for comprehensive target profiling and data aggregation.</p>
+            <ul class="tool-features">
+                <li>Social media monitoring</li>
+                <li>Domain & IP intelligence</li>
+                <li>Email & credential leaks</li>
+                <li>Automated reporting</li>
+            </ul>
+            <div class="tool-footer">
+                <a href="#" class="tool-btn primary">Launch Tool</a>
+                <a href="#" class="tool-btn">Documentation</a>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="exploit">
+            <div class="tool-header">
+                <div>
+                    <h3>PrivEsc Toolkit</h3>
+                </div>
+                <span class="tool-badge">Exploitation</span>
+            </div>
+            <p>Privilege escalation enumeration and exploitation tool for Linux, Windows, and macOS systems.</p>
+            <ul class="tool-features">
+                <li>Automated enumeration</li>
+                <li>Kernel exploit suggestions</li>
+                <li>Misconfiguration detection</li>
+                <li>Path to root mapping</li>
+            </ul>
+            <div class="tool-footer">
+                <a href="#" class="tool-btn primary">Launch Tool</a>
+                <a href="#" class="tool-btn">Documentation</a>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="forensics">
+            <div class="tool-header">
+                <div>
+                    <h3>PacketAnalyzer</h3>
+                </div>
+                <span class="tool-badge">Forensics</span>
+            </div>
+            <p>Advanced network traffic analysis and packet inspection tool for threat detection and investigation.</p>
+            <ul class="tool-features">
+                <li>Deep packet inspection</li>
+                <li>Protocol decoding</li>
+                <li>Malicious traffic detection</li>
+                <li>Session reconstruction</li>
+            </ul>
+            <div class="tool-footer">
+                <a href="#" class="tool-btn primary">Launch Tool</a>
+                <a href="#" class="tool-btn">Documentation</a>
+            </div>
+        </div>
+
+        <div class="tool-card" data-category="scanner">
+            <div class="tool-header">
+                <div>
+                    <h3>CloudSec Auditor</h3>
+                </div>
+                <span class="tool-badge">Scanner</span>
+            </div>
+            <p>Cloud security configuration scanner for AWS, Azure, and GCP with compliance checking.</p>
+            <ul class="tool-features">
+                <li>Multi-cloud support</li>
+                <li>Compliance frameworks</li>
+                <li>IAM policy analysis</li>
+                <li>Resource inventory</li>
+            </ul>
+            <div class="tool-footer">
+                <a href="#" class="tool-btn primary">Launch Tool</a>
+                <a href="#" class="tool-btn">Documentation</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const toolCards = document.querySelectorAll('.tool-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.getAttribute('data-filter');
+
+            toolCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+```
+
+</body>
+</html>
