@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - HackBit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    body {
+        font-family: 'Courier New', monospace;
+        background: #0a0e27;
+        color: #00ff41;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 60px;
+        border-bottom: 2px solid #00ff41;
+        padding-bottom: 30px;
+    }
+
+    h1 {
+        font-size: 3em;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px #00ff41;
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41; }
+        to { text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41, 0 0 30px #00ff41; }
+    }
+
+    .tagline {
+        font-size: 1.2em;
+        color: #00cc33;
+        margin-top: 10px;
+    }
+
+    .contact-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .contact-wrapper {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .contact-form {
+        background: rgba(0, 255, 65, 0.05);
+        border: 1px solid #00ff41;
+        padding: 40px;
+        border-radius: 5px;
+    }
+
+    h2 {
+        color: #00ff41;
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        border-left: 4px solid #00ff41;
+        padding-left: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        color: #00ff41;
+        margin-bottom: 8px;
+        font-size: 1.1em;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 12px;
+        background: rgba(0, 255, 65, 0.1);
+        border: 1px solid #00cc33;
+        color: #00ff41;
+        font-family: 'Courier New', monospace;
+        font-size: 1em;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        border-color: #00ff41;
+        background: rgba(0, 255, 65, 0.15);
+        box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 150px;
+    }
+
+    button {
+        background: #00ff41;
+        color: #0a0e27;
+        padding: 15px 40px;
+        border: none;
+        font-size: 1.1em;
+        font-weight: bold;
+        font-family: 'Courier New', monospace;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    button:hover {
+        background: #00cc33;
+        box-shadow: 0 0 20px #00ff41;
+        transform: translateY(-2px);
+    }
+
+    .contact-info {
+        background: rgba(0, 255, 65, 0.05);
+        border: 1px solid #00ff41;
+        padding: 40px;
+        border-radius: 5px;
+    }
+
+    .info-item {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: rgba(0, 255, 65, 0.08);
+        border-left: 3px solid #00ff41;
+        border-radius: 3px;
+    }
+
+    .info-item h3 {
+        color: #00ff41;
+        margin-bottom: 10px;
+        font-size: 1.3em;
+    }
+
+    .info-item p {
+        color: #a0ffa0;
+        font-size: 1.05em;
+    }
+
+    .info-item a {
+        color: #00ff41;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .info-item a:hover {
+        color: #00cc33;
+        text-shadow: 0 0 5px #00ff41;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .social-links a {
+        display: inline-block;
+        padding: 10px 20px;
+        background: rgba(0, 255, 65, 0.1);
+        border: 1px solid #00cc33;
+        border-radius: 3px;
+        color: #00ff41;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+        background: rgba(0, 255, 65, 0.2);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 255, 65, 0.3);
+    }
+
+    .alert {
+        background: rgba(0, 255, 65, 0.1);
+        border: 1px solid #00ff41;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .alert p {
+        color: #a0ffa0;
+        font-size: 1.05em;
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>[ CONTACT US ]</h1>
+            <p class="tagline">&gt; Get in Touch with the HackBit Team</p>
+        </header>
+
+```
+    <div class="alert">
+        <p>💬 We typically respond within 24-48 hours. For security vulnerabilities, please use our responsible disclosure program.</p>
+    </div>
+
+    <div class="contact-wrapper">
+        <div class="contact-form">
+            <h2>Send Us a Message</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Select a topic...</option>
+                        <option value="general">General Inquiry</option>
+                        <option value="support">Technical Support</option>
+                        <option value="security">Security Issue</option>
+                        <option value="partnership">Partnership</option>
+                        <option value="feedback">Feedback</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required placeholder="Type your message here..."></textarea>
+                </div>
+
+                <button type="submit">SEND MESSAGE</button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            
+            <div class="info-item">
+                <h3>📧 Email</h3>
+                <p><a href="mailto:contact@hackbit.org">contact@hackbit.org</a></p>
+                <p>For security issues: <a href="mailto:security@hackbit.org">security@hackbit.org</a></p>
+            </div>
+
+            <div class="info-item">
+                <h3>🔐 Security Disclosure</h3>
+                <p>Found a vulnerability? We appreciate responsible disclosure.</p>
+                <p><a href="#">View our disclosure policy →</a></p>
+            </div>
+
+            <div class="info-item">
+                <h3>💼 Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM (UTC)</p>
+                <p>Emergency Security Issues: 24/7</p>
+            </div>
+
+            <div class="info-item">
+                <h3>🌐 Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#">Twitter</a>
+                    <a href="#">GitHub</a>
+                    <a href="#">Discord</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('contactForm');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        alert(`Thank you ${name}! Your message has been received.\n\nWe'll respond to ${email} within 24-48 hours.`);
+        
+        form.reset();
+    });
+</script>
+```
+
+</body>
+</html>
