@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact HackBit</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html" aria-label="HackBit">
+        <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 12 L9 3 L15 12 L9 21 Z" fill="currentColor"></path>
+        </svg>
+        <span class="brand">HackBit</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="tools.html" class="nav-link">Tools</a>
+        <a href="contact.html" class="nav-link active cta">Report</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <h1>Contact Us</h1>
+    <p>If you’ve discovered a security issue, or if you’d like to collaborate with HackBit, please get in touch.</p>
+
+    <form class="contact-form">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Message / Vulnerability Report</label>
+      <textarea id="message" name="message" rows="6" required></textarea>
+
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+
+    <p class="note">Or email us directly at <a href="mailto:security@hackbit.org">security@hackbit.org</a></p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2025 HackBit.org — Security by Curiosity</p>
+    </div>
+  </footer>
+</body>
+</html>
